@@ -58,62 +58,71 @@ public class Maquina {
      * Añade dinero a la máquina desde la cartera de un cliente.
      * @param carteraPersona Cartera del cliente que introduce dinero.
      */
-	public void añadirDinero(Cartera carteraPersona) {
+	public void añadirDinero(Cartera carteraPersona,String nombre,int pSeleccionado) {
 		int dC = 0;
 		int vC = 0;
 		int cC = 0;
 		int uE = 0;
 		int dE = 0;
 		
-		dIntroducido.valueOf(0);
+		Producto productoActual = productosMaquina.get(pSeleccionado);
+		double precioProducto = productoActual.getPrecio();
+		
+		dIntroducido = BigDecimal.valueOf(0);
 		
 		monedasVueltaOIntroducidas.clear();
 		
-		while (dIntroducido.doubleValue()<4 && carteraPersona.getCantMoneda(carteraPersona.getTipoMoneda(2))>dE) {
-			dE++;
-			dIntroducido = dIntroducido.add(BigDecimal.valueOf(2));
-		}
-		monedasVueltaOIntroducidas.put(carteraPersona.getTipoMoneda(2), dE);
-		while (dIntroducido.doubleValue()<4 && carteraPersona.getCantMoneda(carteraPersona.getTipoMoneda(1))>uE) {
-			uE++;
-			dIntroducido = dIntroducido.add(BigDecimal.valueOf(1));
-		}
-		monedasVueltaOIntroducidas.put(carteraPersona.getTipoMoneda(1), uE);
-		while (dIntroducido.doubleValue()<4 && carteraPersona.getCantMoneda(carteraPersona.getTipoMoneda(0.5))>cC) {
-			cC++;
-			dIntroducido = dIntroducido.add(BigDecimal.valueOf(0.5));
-		}
-		monedasVueltaOIntroducidas.put(carteraPersona.getTipoMoneda(0.5), cC);
-		while (dIntroducido.doubleValue()<4 && carteraPersona.getCantMoneda(carteraPersona.getTipoMoneda(0.2))>vC) {
-			vC++;
-			dIntroducido = dIntroducido.add(BigDecimal.valueOf(0.2));
-		}
-		monedasVueltaOIntroducidas.put(carteraPersona.getTipoMoneda(0.2), vC);
-		while (dIntroducido.doubleValue()<4 && carteraPersona.getCantMoneda(carteraPersona.getTipoMoneda(0.1))>dC) {
+		while (dIntroducido.doubleValue()<precioProducto && carteraPersona.getCantMoneda(carteraPersona.getTipoMoneda(0.1))>dC) {
 			dC++;
+			System.out.println("Has introducido 0,10€");
 			dIntroducido = dIntroducido.add(BigDecimal.valueOf(0.1));
 		}
 		monedasVueltaOIntroducidas.put(carteraPersona.getTipoMoneda(0.1), dC);
+		while (dIntroducido.doubleValue()<precioProducto && carteraPersona.getCantMoneda(carteraPersona.getTipoMoneda(0.2))>vC) {
+			vC++;
+			System.out.println("Has introducido 0,20€");
+			dIntroducido = dIntroducido.add(BigDecimal.valueOf(0.2));
+		}
+		monedasVueltaOIntroducidas.put(carteraPersona.getTipoMoneda(0.2), vC);
+		while (dIntroducido.doubleValue()<precioProducto && carteraPersona.getCantMoneda(carteraPersona.getTipoMoneda(0.5))>cC) {
+			cC++;
+			System.out.println("Has introducido 0,50€");
+			dIntroducido = dIntroducido.add(BigDecimal.valueOf(0.5));
+		}
+		monedasVueltaOIntroducidas.put(carteraPersona.getTipoMoneda(0.5), cC);
+		while (dIntroducido.doubleValue()<precioProducto && carteraPersona.getCantMoneda(carteraPersona.getTipoMoneda(1))>uE) {
+			uE++;
+			System.out.println("Has introducido 1€");
+			dIntroducido = dIntroducido.add(BigDecimal.valueOf(1));
+		}
+		monedasVueltaOIntroducidas.put(carteraPersona.getTipoMoneda(1), uE);
+		while (dIntroducido.doubleValue()<precioProducto && carteraPersona.getCantMoneda(carteraPersona.getTipoMoneda(2))>dE) {
+			dE++;
+			System.out.println("Has introducido 2€");
+			dIntroducido = dIntroducido.add(BigDecimal.valueOf(2));
+		}
+		monedasVueltaOIntroducidas.put(carteraPersona.getTipoMoneda(2), dE);
 		
 		monedasMaquina.añadirSaldo(monedasVueltaOIntroducidas);
 		carteraPersona.retirarSaldo(monedasVueltaOIntroducidas);
 		
-		System.out.println("Has introducido "+dIntroducido);
+		System.out.println(nombre+" has introducido "+dIntroducido);
 	}
 	
 	/**
      * Devuelve el cambio al cliente.
      * @param carteraPersona Cartera del cliente donde se devolverá el cambio.
      */
-	public void cogerVuelta(Cartera carteraPersona) {
+	public void cogerVuelta(Cartera carteraPersona,String nombre) {
 		int dC = 0;
 		int vC = 0;
 		int cC = 0;
 		int uE = 0;
 		int dE = 0;
 		
-		dVuelta.valueOf(0);
 		monedasVueltaOIntroducidas.clear();
+		
+		System.out.println(nombre+" has recogido "+dVuelta);
 		
 		while (dVuelta.doubleValue()>=2 && monedasMaquina.getCantMoneda(monedasMaquina.getTipoMoneda(2))>dE) {
 			dE++;
@@ -143,31 +152,29 @@ public class Maquina {
 		
 		monedasMaquina.retirarSaldo(monedasVueltaOIntroducidas);
 		carteraPersona.añadirSaldo(monedasVueltaOIntroducidas);
-		
-		System.out.println("Has recogido "+dVuelta);
 	}
 	
 	/**
      * Procesa la compra de un producto seleccionado.
      * @param pSelecionado ID del producto seleccionado.
      */
-	public boolean cogerProducto(int pSelecionado) {
-		Producto productoActual = productosMaquina.get(pSelecionado);
+	public void cogerProducto(int pSeleccionado) {
+		Producto productoActual = productosMaquina.get(pSeleccionado);
 		if (productoActual != null) {
-			if (cantProductos.get(pSelecionado)>0) {
-				if (productoActual.getPrecio()<dIntroducido.intValue()) {
+			if (cantProductos.get(pSeleccionado)>0) {
+				if (productoActual.getPrecio()<=dIntroducido.doubleValue()) {
 					dVuelta = dIntroducido.subtract(BigDecimal.valueOf(productoActual.getPrecio()));
-					System.out.println("Has comprado un/a "+productoActual.getNombre()+" CAMBIO: "+dVuelta);
-					return true;
+					System.out.println("Has comprado un/a "+productoActual.getNombre()+" CUESTA: "+productoActual.getPrecio()+" CAMBIO: "+dVuelta);
 				}else {
+					dVuelta = BigDecimal.valueOf(dIntroducido.doubleValue());
 					System.out.println("No has introducido dinero suficiente "+productoActual.getNombre()+ " CUESTA: "+productoActual.getPrecio()+" INTRODUCIDO: "+dIntroducido);
 				}
 			}else {
+				dVuelta = BigDecimal.valueOf(dIntroducido.doubleValue());
 				System.out.println("No quedan "+productoActual.getNombre()+" en la maquina expendedora. AVISANDO REPONEDOR");
-				prodRep.add(pSelecionado);
+				prodRep.add(pSeleccionado);
 			}
 		}
-		return false;
 	}
 	
 	/**

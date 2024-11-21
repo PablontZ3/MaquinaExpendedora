@@ -83,4 +83,13 @@ public class Cartera {
 			monedas.replace(moneda, cantActual);
 		}
 	}
+	
+	/**
+	 * Este metodo es unicamente para pruebas
+	 */
+	public void mostrarCartera() {
+		for (Moneda moneda : monedas.keySet()) {
+			System.out.println(moneda.getValor()+" Cantidad: "+monedas.get(moneda));
+		}
+	}
 }

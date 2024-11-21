@@ -21,10 +21,9 @@ public class PlantillaPersona extends Thread {
 	}
 	
 	public void run() {
-		maquinaExp.añadirDinero(cartera);
-		if (maquinaExp.cogerProducto(productoInteres)) {
-			System.out.println(nombre+" Pudo coger producto");
-			maquinaExp.cogerVuelta(cartera);
-		}
+		cartera.mostrarCartera();
+		maquinaExp.añadirDinero(cartera,nombre,productoInteres);
+		maquinaExp.cogerProducto(productoInteres);
+	    maquinaExp.cogerVuelta(cartera,nombre);
 	}
 }
