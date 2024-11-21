@@ -34,7 +34,7 @@ public class Cartera {
 	public Moneda getTipoMoneda(double valorM) {
 		Moneda monedaT = null;
 		for (Moneda moneda : monedas.keySet()) {
-			if (monedas.get(moneda).equals(valorM)) {
+			if (moneda.getValor()==valorM) {
 				return moneda;
 			}
 		}

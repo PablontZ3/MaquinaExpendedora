@@ -22,7 +22,9 @@ public class PlantillaPersona extends Thread {
 	
 	public void run() {
 		maquinaExp.añadirDinero(cartera);
-		maquinaExp.cogerProducto(productoInteres);
-		maquinaExp.cogerVuelta(cartera);
+		if (maquinaExp.cogerProducto(productoInteres)) {
+			System.out.println(nombre+" Pudo coger producto");
+			maquinaExp.cogerVuelta(cartera);
+		}
 	}
 }

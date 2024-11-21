@@ -21,8 +21,7 @@ public class PlantillaMain {
 		
 		for (int i = 0; i < cantPersonas; i++) {
 			String nombreAleatorio = nombres.get(random.nextInt(nombres.size()));
-			new PlantillaPersona(new Cartera(dCm,vCm,cCm,uEm,dEm,random.nextInt(7),random.nextInt(4),random.nextInt(3),random.nextInt(2),random.nextInt(2)),
-					        nombreAleatorio,maquinaExp,random.nextInt(16)+1).run();
+			new PlantillaPersona(new Cartera(dCm,vCm,cCm,uEm,dEm,random.nextInt(7),random.nextInt(4),random.nextInt(3),random.nextInt(2),random.nextInt(2)),nombreAleatorio,maquinaExp,random.nextInt(16)+1).run();
 		}
 	}
 }
