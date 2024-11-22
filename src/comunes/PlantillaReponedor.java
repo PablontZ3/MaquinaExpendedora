@@ -10,16 +10,11 @@ public class PlantillaReponedor extends Thread {
 	
 	public void run() {
 		try {
-			
-			Thread.sleep(1000);
-			
-			maquinaExp.repProducto(nombre);//Repone maquina a las 12am
-			
-			Thread.sleep(1000);
-			
-            maquinaExp.repProducto(nombre);//Repone maquina a las 12pm
-            
-            maquinaExp.getDRecaudado(nombre);//Recoge dinero a las 12pm
+			while (maquinaExp.verCantRep()>0) {
+				maquinaExp.repProducto(nombre);
+				Thread.sleep(5000);//Descansa antes de comprobar otra vez si tiene que repones
+			}
+            maquinaExp.getDRecaudado(nombre);//Recoge dinero
 			
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block

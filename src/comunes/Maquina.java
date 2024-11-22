@@ -16,7 +16,9 @@ public class Maquina {
     private ArrayList<Integer> prodRep = new ArrayList<>(); // Lista de productos a reponer.
     private Cartera monedasMaquina; // Cartera de la máquina que almacena las monedas disponibles.
     private HashMap<Moneda, Integer> monedasVueltaOIntroducidas = new HashMap<>(); // Monedas usadas para cambio o introducidas.
-
+    
+    //private BigDecimal comprobador = BigDecimal.ZERO;//Unicamente para pruebas
+    
     /**
      * Constructor de la clase Maquina.
      * Inicializa los productos disponibles y sus cantidades, y asigna una cartera inicial.
@@ -27,6 +29,8 @@ public class Maquina {
     	dRecaudado = BigDecimal.ZERO.setScale(2, RoundingMode.HALF_EVEN);
         dIntroducido = BigDecimal.ZERO.setScale(2, RoundingMode.HALF_EVEN);
         dVuelta = BigDecimal.ZERO.setScale(2, RoundingMode.HALF_EVEN);
+        
+        //comprobador = BigDecimal.ZERO.setScale(2, RoundingMode.HALF_EVEN);//Unicamente para pruebas
 
         // Inicialización de los productos en la máquina.
         productosMaquina.put(1, new Producto("Coca-Cola", 2.5));
@@ -135,6 +139,8 @@ public class Maquina {
 				if (productoActual.getPrecio()<=dIntroducido.doubleValue()) {
 					dVuelta = dIntroducido.subtract(BigDecimal.valueOf(productoActual.getPrecio()));
 					System.out.println("Has comprado un/a "+productoActual.getNombre()+" CUESTA: "+productoActual.getPrecio()+" CAMBIO: "+dVuelta);
+	                //comprobador = comprobador.add(BigDecimal.valueOf(productoActual.getPrecio()));//Unicamente para pruebas
+	                //System.out.println("Prueba dinero rec: "+comprobador);//Unicamente para pruebas
 				}else {
 					dVuelta = BigDecimal.valueOf(dIntroducido.doubleValue());
 					System.out.println("No has introducido dinero suficiente "+productoActual.getNombre()+ " CUESTA: "+productoActual.getPrecio()+" INTRODUCIDO: "+dIntroducido);
@@ -149,7 +155,13 @@ public class Maquina {
 			}
 		}
 	}
-	
+	/**
+	 * Ver cantidad de productos a reponer
+	 * @return cantidad productos a repones
+	 */
+	public int verCantRep() {
+		return prodRep.size();
+	}
 	/**
      * Repone los productos agotados en la máquina.
      */

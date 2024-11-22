@@ -21,9 +21,16 @@ public class PlantillaPersona extends Thread {
 	}
 	
 	public void run() {
-		cartera.mostrarCartera();
-		maquinaExp.añadirDinero(cartera,nombre,productoInteres);
-		maquinaExp.cogerProducto(productoInteres);
-	    maquinaExp.cogerVuelta(cartera,nombre);
+		try {
+			
+			Thread.sleep(50);
+			
+			maquinaExp.añadirDinero(cartera,nombre,productoInteres);
+			maquinaExp.cogerProducto(productoInteres);
+		    maquinaExp.cogerVuelta(cartera,nombre);//Tanto si coge o no coge producto coge vuelta en caso de no tener dinero suficiente le devuelve el suyo
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

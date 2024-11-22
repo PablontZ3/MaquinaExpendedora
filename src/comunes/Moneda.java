@@ -16,7 +16,7 @@ public class Moneda {
 	
 	/**
 	 * Ver valor moneda
-	 * @return valor de la moneda
+	 * @return valro moneda
 	 */
 	public double getValor() {
 		return valor;
