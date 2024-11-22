@@ -24,5 +24,7 @@ public class PlantillaMain {
 			
 			new PlantillaPersona(new Cartera(dCm,vCm,cCm,uEm,dEm,random.nextInt(10),random.nextInt(5),random.nextInt(4),random.nextInt(2),random.nextInt(1)),nombreAleatorio,maquinaExp,random.nextInt(16)+1).run();
 		}
+		
+		new PlantillaReponedor(maquinaExp).run();;
 	}
 }
