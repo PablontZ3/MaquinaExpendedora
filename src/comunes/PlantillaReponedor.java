@@ -12,7 +12,7 @@ public class PlantillaReponedor extends Thread {
 		try {
 			while (maquinaExp.verCantRep()>0) {
 				maquinaExp.repProducto(nombre);
-				Thread.sleep(5000);//Descansa antes de comprobar otra vez si tiene que repones
+				Thread.sleep(3000);//Descansa antes de comprobar otra vez si tiene que repones
 			}
             maquinaExp.getDRecaudado(nombre);//Recoge dinero
 			

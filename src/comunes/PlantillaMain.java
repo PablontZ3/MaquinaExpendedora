@@ -6,7 +6,7 @@ import java.util.Random;
 public class PlantillaMain {
 
 	public static void main(String[] args) {
-		int cantPersonas = 100;
+		int cantPersonas = 1000;
 		 // Lista de nombres
         List<String> nombres = List.of("Pablo","Francisco","Nicolas","Pablito","Fran","Nico","Paul","Francis","Nicole","Pablete");
         
