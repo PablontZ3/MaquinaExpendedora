@@ -1,12 +1,15 @@
-package comunes;
+package maquinaexpendedoramon;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
-public class Maquina {
+import comunes.Cartera;
+import comunes.Moneda;
+import comunes.Producto;
+
+public class MaquinaMonitor {
 	// Atributos
     private HashMap<Integer, Producto> productosMaquina = new HashMap<>(); // Productos disponibles en la máquina.
     private HashMap<Integer, Integer> cantProductos = new HashMap<>(); // Cantidad de cada producto en stock.
@@ -16,7 +19,7 @@ public class Maquina {
     private ArrayList<Integer> prodRep = new ArrayList<>(); // Lista de productos a reponer.
     private Cartera monedasMaquina; // Cartera de la máquina que almacena las monedas disponibles.
     private HashMap<Moneda, Integer> monedasVueltaOIntroducidas = new HashMap<>(); // Monedas usadas para cambio o introducidas.
-    
+    private Boolean disponible = true;
     //private BigDecimal comprobador = BigDecimal.ZERO;//Unicamente para pruebas
     
     /**
@@ -24,7 +27,7 @@ public class Maquina {
      * Inicializa los productos disponibles y sus cantidades, y asigna una cartera inicial.
      * @param cartera Cartera inicial de la máquina.
      */
-    public Maquina(Cartera cartera) {
+    public MaquinaMonitor(Cartera cartera) {
     	// Como double y float generaban dinero a la hora del redondeo dedinero uso este formato
     	dRecaudado = BigDecimal.ZERO.setScale(2, RoundingMode.HALF_EVEN);
         dIntroducido = BigDecimal.ZERO.setScale(2, RoundingMode.HALF_EVEN);
@@ -57,12 +60,22 @@ public class Maquina {
 
         monedasMaquina = cartera;
     }
-	
+    
     /**
      * Añade dinero a la máquina desde la cartera de un cliente.
+     * Método sincronizado que captura el monitor para el cliente e inicia
+     * el proceso de compra.
      * @param carteraPersona Cartera del cliente que introduce dinero.
      */
-	public void añadirDinero(Cartera carteraPersona,String nombre,int pSeleccionado) {
+	public synchronized void añadirDinero(Cartera carteraPersona,String nombre,int pSeleccionado) {
+		try {
+			while (!disponible) {
+				wait();
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		disponible = false;
 		Producto productoActual = productosMaquina.get(pSeleccionado);
 		double precioProducto = productoActual.getPrecio();
 		
@@ -98,9 +111,10 @@ public class Maquina {
 	
 	/**
      * Devuelve el cambio al cliente.
+     * Método sincronizado que avisa al resto de hilos al final.
      * @param carteraPersona Cartera del cliente donde se devolverá el cambio.
      */
-	public void cogerVuelta(Cartera carteraPersona,String nombre) {
+	public synchronized void cogerVuelta(Cartera carteraPersona,String nombre) {
 		monedasVueltaOIntroducidas.clear();
 		
 		System.out.println(nombre+" has recogido "+dVuelta);
@@ -113,6 +127,9 @@ public class Maquina {
 		
 		monedasMaquina.retirarSaldo(monedasVueltaOIntroducidas);
 		carteraPersona.añadirSaldo(monedasVueltaOIntroducidas);
+		
+		disponible = true;
+		notifyAll();
 	}
 	
 	/**
@@ -163,14 +180,24 @@ public class Maquina {
 		return prodRep.size();
 	}
 	/**
-     * Repone los productos agotados en la máquina.
+     * Repone los productos agotados en la máquina. Método sincronizado.
      */
-	public void repProducto(String nombre) {
+	public synchronized void repProducto(String nombre) {
+		try {
+			while (!disponible) {
+				wait();
+			}
+		} catch (Exception ex){
+			// TODO: handle finally clause
+		} 
+		disponible = false;
 		for (Integer numP : prodRep) {
 			cantProductos.replace(numP, 10);
 			System.out.println(nombre+" ha repuesto "+productosMaquina.get(numP).getNombre());
 		}
 		prodRep.clear();
+		disponible = true;
+		notifyAll();
 	}
 	
 	/**
