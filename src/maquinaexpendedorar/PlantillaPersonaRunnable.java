@@ -1,5 +1,7 @@
-package comunes;
+package maquinaexpendedorar;
 
+import comunes.Cartera;
+import comunes.Maquina;
 import maquinaexpendedoramon.MaquinaMonitor;
 
 public class PlantillaPersonaRunnable implements Runnable {

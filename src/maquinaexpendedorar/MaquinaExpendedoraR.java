@@ -6,8 +6,6 @@ import java.util.Random;
 import comunes.Cartera;
 import comunes.Maquina;
 import comunes.Moneda;
-import comunes.PlantillaPersonaRunnable;
-import comunes.PlantillaReponedorRunnable;
 
 public class MaquinaExpendedoraR {
 	public static void main(String[] args) {
