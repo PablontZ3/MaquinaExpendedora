@@ -19,7 +19,7 @@ public class MaquinaMonitor {
     private ArrayList<Integer> prodRep = new ArrayList<>(); // Lista de productos a reponer.
     private Cartera monedasMaquina; // Cartera de la máquina que almacena las monedas disponibles.
     private HashMap<Moneda, Integer> monedasVueltaOIntroducidas = new HashMap<>(); // Monedas usadas para cambio o introducidas.
-    private Boolean disponible = true;
+    private boolean disponible = true;
     //private BigDecimal comprobador = BigDecimal.ZERO;//Unicamente para pruebas
     
     /**
