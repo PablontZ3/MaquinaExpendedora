@@ -30,13 +30,14 @@ public class PersonaSemaforo extends Thread {
 	}
 
 	public void run() {
+		//Coge los semaforos, paga y si puedes coge el producto
 		try {
 			Thread.sleep(50);
 			propio.acquire();
 			mutex.acquire();	
 			maquinaExp.añadirDinero(cartera,nombre,productoInteres);
 			maquinaExp.cogerProducto(productoInteres);
-			//Tanto si coge o no coge producto coge vuelta en caso de no tener dinero suficiente le devuelve el suyo
+			//Tanto si coge o no coge producto, coge vuelta o el dinero pagado
 			maquinaExp.cogerVuelta(cartera,nombre);
 			mutex.release();
 			propio.release();

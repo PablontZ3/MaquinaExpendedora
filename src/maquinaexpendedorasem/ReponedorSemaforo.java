@@ -18,6 +18,7 @@ public class ReponedorSemaforo extends Thread {
 	public void run() {
 		try {
 			sleep(1000);
+				//Si has cosas que reponer, coge los semaforos y reponne
 				while (maquinaExp.verCantRep()>0) {
 					propio.acquire();
 					mutex.acquire();
@@ -26,6 +27,7 @@ public class ReponedorSemaforo extends Thread {
 					mutex.release();
 					propio.release();
 				}
+				//Coge los  semaforos y Recoge lo recaudado
 				propio.acquire();
 				mutex.acquire();
 	            maquinaExp.getDRecaudado(nombre);//Recoge dinero
