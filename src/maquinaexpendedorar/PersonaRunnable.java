@@ -4,7 +4,7 @@ import comunes.Cartera;
 import comunes.Maquina;
 import maquinaexpendedoramon.MaquinaMonitor;
 
-public class PlantillaPersonaRunnable implements Runnable {
+public class PersonaRunnable implements Runnable {
 	String nombre;
 	Cartera cartera;
 	Maquina maquinaExp;
@@ -18,14 +18,14 @@ public class PlantillaPersonaRunnable implements Runnable {
 	 * @param maquinaExp Maquina expendedora
 	 * @param productoInteres Producto que quiere comprar
 	 */
-	public PlantillaPersonaRunnable(Cartera cartera,String nombre,Maquina maquinaExp,int productoInteres) {
+	public PersonaRunnable(Cartera cartera,String nombre,Maquina maquinaExp,int productoInteres) {
 		this.nombre = nombre;
 		this.cartera = cartera;
 		this.maquinaExp = maquinaExp;
 		this.productoInteres = productoInteres;
 	}
 	
-	public PlantillaPersonaRunnable(Cartera cartera,String nombre,MaquinaMonitor maquinaExp,int productoInteres) {
+	public PersonaRunnable(Cartera cartera,String nombre,MaquinaMonitor maquinaExp,int productoInteres) {
 		this.nombre = nombre;
 		this.cartera = cartera;
 		this.maquinaExpMon = maquinaExp;

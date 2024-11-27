@@ -2,12 +2,11 @@ package maquinaexpendedorar;
 
 import java.util.List;
 import java.util.Random;
-
 import comunes.Cartera;
 import comunes.Maquina;
 import comunes.Moneda;
 
-public class MaquinaExpendedoraR {
+public class MainRunnable {
 	public static void main(String[] args) {
 			//Logica para la automatizacion de la instaciacion de personas
 			int cantPersonas = 10;
@@ -24,9 +23,11 @@ public class MaquinaExpendedoraR {
 			
 			for (int i = 0; i < cantPersonas; i++) {
 				String nombreAleatorio = nombres.get(random.nextInt(nombres.size()));
-				new PlantillaPersonaRunnable(new Cartera(dCm,vCm,cCm,uEm,dEm,random.nextInt(10),random.nextInt(5),random.nextInt(4),random.nextInt(2),random.nextInt(1)),nombreAleatorio,maquinaExp,random.nextInt(16)+1).run();
+				PersonaRunnable p = new PersonaRunnable(new Cartera(dCm,vCm,cCm,uEm,dEm,random.nextInt(10),random.nextInt(5),random.nextInt(4),random.nextInt(2),random.nextInt(1)),nombreAleatorio,maquinaExp,random.nextInt(16)+1);
+				new Thread(p).start();
 			}
 			
-			new PlantillaReponedorRunnable(maquinaExp).run();
+			ReponedorRunnable r = new ReponedorRunnable(maquinaExp);
+			new Thread(r).start();
 	}
 }

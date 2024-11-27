@@ -3,16 +3,16 @@ package maquinaexpendedorar;
 import comunes.Maquina;
 import maquinaexpendedoramon.MaquinaMonitor;
 
-public class PlantillaReponedorRunnable implements Runnable{
+public class ReponedorRunnable implements Runnable{
 	String nombre = "Paquiño";
 	Maquina maquinaExp;
 	MaquinaMonitor maquinaExpMon;
 	
-	public PlantillaReponedorRunnable(Maquina maquinaExp) {
+	public ReponedorRunnable(Maquina maquinaExp) {
 		this.maquinaExp = maquinaExp;
 	}
 	
-	public PlantillaReponedorRunnable(MaquinaMonitor maquinaExpMon) {
+	public ReponedorRunnable(MaquinaMonitor maquinaExpMon) {
 		this.maquinaExpMon = maquinaExpMon;
 	}
 	
