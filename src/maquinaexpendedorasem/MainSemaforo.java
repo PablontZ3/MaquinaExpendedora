@@ -1,5 +1,6 @@
 package maquinaexpendedorasem;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.Semaphore;
@@ -30,12 +31,40 @@ public class MainSemaforo {
 		//Inicia la maquina expendedora 
 		Maquina maquinaExp = new Maquina(new Cartera(dCm,vCm,cCm,uEm,dEm,200,100,40,20,10));
 		
-		for (int i = 0; i < cantPersonas; i++) {
-			//Inicia a todas las personas, e inicia su metodo run
-			String nombreAleatorio = nombres.get(random.nextInt(nombres.size()));
-			new PersonaSemaforo(new Cartera(dCm,vCm,cCm,uEm,dEm,random.nextInt(10),random.nextInt(5),random.nextInt(4),random.nextInt(2),random.nextInt(1)),nombreAleatorio,maquinaExp,random.nextInt(16)+1,mutex,sPersona).start();
-		}
-		//Inicia el metodo run del encargado de reponer los objetos
-		new ReponedorSemaforo(maquinaExp,mutex,sPersona).start();
+		// Lista para guardar los hilos de las personas
+        List<Thread> hilosPersonas = new ArrayList<>();
+
+        // Creamos los hilos
+        for (int i = 0; i < cantPersonas; i++) {
+            String nombreAleatorio = nombres.get(random.nextInt(nombres.size()));
+
+            Thread personaHilo = new PlantillaPersona(
+                    new Cartera(dCm, vCm, cCm, uEm, dEm, random.nextInt(10), random.nextInt(5), random.nextInt(4), random.nextInt(2), random.nextInt(1)),
+                    nombreAleatorio,
+                    maquinaExp,
+                    random.nextInt(16) + 1
+            );
+
+            hilosPersonas.add(personaHilo);
+            personaHilo.start();
+        }
+
+        Thread reponedorHilo = new PlantillaReponedor(maquinaExp);
+        reponedorHilo.start();
+
+        // Usamos join para asegurar la correcta ejecucion de tods los hilos
+        for (Thread hilo : hilosPersonas) {
+            try {
+                hilo.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        try {
+            reponedorHilo.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 	}
 }
