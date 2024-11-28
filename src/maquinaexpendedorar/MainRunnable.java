@@ -11,7 +11,15 @@ public class MainRunnable {
 	public static void main(String[] args) {
         // Lógica para la automatización de la instanciación de personas
         int cantPersonas = 10;
-        List<String> nombres = List.of("Pablo", "Francisco", "Nicolas", "Pablito", "Fran", "Nico", "Paul", "Francis", "Nicole", "Pablete");
+        List<String> nombres = List.of(
+        	    "Pablo", "Francisco", "Nicolas", "Pablito", "Fran", "Nico", 
+        	    "Paul", "Francis", "Nicole", "Pablete", 
+        	    "Paolo", "Pablín", "Pablucho", "Paula", "Paulina", "Pau", 
+        	    "Pancho", "Cisco", "Paco", "Pablito", "Francisca", "Nicolás", 
+        	    "Nikki", "Nick", "Nicky", "Nikolai", "Nicoletta", "Franck", 
+        	    "Franco", "Franchesca", "Franny", "Nicolina", "Nilo", 
+        	    "Paulo", "Nicol", "Niklaus", "Pablote"
+        	);
         
         // Creación de los distintos tipos de moneda
         Moneda dCm = new Moneda("0.10€", 0.10);

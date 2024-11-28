@@ -11,7 +11,15 @@ public class MainThread {
 	    
 	    // Indicamos los clientes y generamos unos nombres para estos
 	    int cantPersonas = 10;
-	    List<String> nombres = List.of("Pablo", "Francisco", "Nicolas", "Pablito", "Fran", "Nico", "Paul", "Francis", "Nicole", "Pablete");
+	    List<String> nombres = List.of(
+	    	    "Pablo", "Francisco", "Nicolas", "Pablito", "Fran", "Nico", 
+	    	    "Paul", "Francis", "Nicole", "Pablete", 
+	    	    "Paolo", "Pablín", "Pablucho", "Paula", "Paulina", "Pau", 
+	    	    "Pancho", "Cisco", "Paco", "Pablito", "Francisca", "Nicolás", 
+	    	    "Nikki", "Nick", "Nicky", "Nikolai", "Nicoletta", "Franck", 
+	    	    "Franco", "Franchesca", "Franny", "Nicolina", "Nilo", 
+	    	    "Paulo", "Nicol", "Niklaus", "Pablote"
+	    	);
 	    
 	    // Creamos las monedas que utilizaran los clientes desde su cartera y
 	    // que recogerá la máquina en su cartera

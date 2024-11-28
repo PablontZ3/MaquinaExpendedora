@@ -9,7 +9,15 @@ public class PlantillaMain {
 	public static void main(String[] args) {
         int cantPersonas = 10;
         // Lista de nombres
-        List<String> nombres = List.of("Pablo", "Francisco", "Nicolas", "Pablito", "Fran", "Nico", "Paul", "Francis", "Nicole", "Pablete");
+        List<String> nombres = List.of(
+        	    "Pablo", "Francisco", "Nicolas", "Pablito", "Fran", "Nico", 
+        	    "Paul", "Francis", "Nicole", "Pablete", 
+        	    "Paolo", "Pablín", "Pablucho", "Paula", "Paulina", "Pau", 
+        	    "Pancho", "Cisco", "Paco", "Pablito", "Francisca", "Nicolás", 
+        	    "Nikki", "Nick", "Nicky", "Nikolai", "Nicoletta", "Franck", 
+        	    "Franco", "Franchesca", "Franny", "Nicolina", "Nilo", 
+        	    "Paulo", "Nicol", "Niklaus", "Pablote"
+        	);
 
         Moneda dCm = new Moneda("0.10€", 0.10);
         Moneda vCm = new Moneda("0.20€", 0.20);
