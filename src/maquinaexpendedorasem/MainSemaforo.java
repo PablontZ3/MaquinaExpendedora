@@ -46,11 +46,13 @@ public class MainSemaforo {
         for (int i = 0; i < cantPersonas; i++) {
             String nombreAleatorio = nombres.get(random.nextInt(nombres.size()));
 
-            Thread personaHilo = new PlantillaPersona(
+            Thread personaHilo = new PersonaSemaforo(
                     new Cartera(dCm, vCm, cCm, uEm, dEm, random.nextInt(10), random.nextInt(5), random.nextInt(4), random.nextInt(2), random.nextInt(1)),
                     nombreAleatorio,
                     maquinaExp,
-                    random.nextInt(16) + 1
+                    random.nextInt(16) + 1,
+                    mutex,
+                    sPersona
             );
 
             hilosPersonas.add(personaHilo);

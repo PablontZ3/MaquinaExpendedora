@@ -23,9 +23,9 @@ public class ReponedorSemaforo extends Thread {
 					propio.acquire();
 					mutex.acquire();
 					maquinaExp.repProducto(nombre);
-					Thread.sleep(3000);//Descansa antes de comprobar otra vez si tiene que repones
 					mutex.release();
 					propio.release();
+					Thread.sleep(3000);//Descansa antes de comprobar otra vez si tiene que repones
 				}
 				//Coge los  semaforos y Recoge lo recaudado
 				propio.acquire();

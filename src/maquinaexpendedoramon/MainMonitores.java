@@ -58,7 +58,7 @@ public class MainMonitores {
 			    Thread reponedor = new PlantillaReponedor(maquina);
 			    reponedor.start();
 
-			 // Usamos join para asegurar la correcta ejecucion de tods los hilos
+			    // Usamos join para asegurar la correcta ejecucion de todos los hilos
 			    for (Thread cliente : hilosClientes) {
 			        try {
 			            cliente.join();
